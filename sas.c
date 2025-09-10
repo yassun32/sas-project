@@ -2,14 +2,21 @@
 #include<stdio.h>
 #include<string.h>
 void affichageList(){
+struct  
+
 }
 void modification(){
+
+
 }
 void supprition(){
+
 }
 void recherche(){
+
 }
 void statistique(){
+
 }
 
 int main (){
