@@ -2,6 +2,7 @@
 #include <string.h>
 
 #define MAX 150
+int choix;
 
 typedef struct {
     int id;
@@ -17,8 +18,66 @@ Joueur joueurs[MAX];
 int countJoueurs = 0;
 
 //ajouter un joueur
-void ajouterJoueur() {
+void ajouterJoueur() 
+{
     Joueur j;
+    j.id = countJoueurs + 1;
+    do
+    {
+        printf("1. Ajouter un seul joueurs\n");
+        printf("2. Ajouter plusieurs joueurs\n");
+        printf("3. return a la page prancipale\n");
+        scanf("%d",&choix);
+        getchar();
+     switch (choix)
+     {
+     case 1:
+     printf("Nom: ");
+     scanf("%s", j.nom);
+     getchar();
+
+     printf("Prénom: ");
+     scanf("%s", j.prenom);
+     getchar();
+
+     printf("Numéro de maillot: ");
+     scanf("%d", &j.numeroMaillot);
+     getchar();
+
+     printf("Poste (Gardien/Defenseur/Milieu/Attaquant): ");
+     scanf("%s", j.poste);
+     getchar();
+
+     printf("Age: ");
+     scanf("%d", &j.age);
+     getchar();
+
+     printf("Buts marqués: ");
+     scanf("%d", &j.buts);
+     getchar();
+     joueurs[countJoueurs] = j;
+     countJoueurs++;
+
+     printf("\nJoueur ajouté avec succès.\n");
+     break;
+     case 2 :
+     plusieursJoueurs ();
+     break;
+     default:
+     printf("\nChoix invalide!!\n");
+     while (choix!=3);
+    }
+} 
+}
+    void plusieursJoueurs (){
+        int n;
+        do
+        {
+           printf("combien des joueur tu va ajoutee ?\n");
+           scanf("%d",&n);
+           for (int i = 0; i < n; i++)
+           {
+            Joueur j;
     j.id = countJoueurs + 1;
 
     printf("Nom: ");
@@ -49,7 +108,13 @@ void ajouterJoueur() {
     countJoueurs++;
 
     printf("\nJoueur ajouté avec succès.\n");
-}
+           }
+           
+
+        } while (choix!=0);
+        
+
+    }
 
 // afficher tous les joueurs
 void afficherJoueurs() {
@@ -69,12 +134,11 @@ void afficherJoueurs() {
 
 
 int main() {
-    int choix;
 
     do {
         printf("\n-----------------------------------\n");
         printf("--- Gestion Equipe de Football ---\n");
-        printf("-----------------------------------\n");
+        printf("------------LES-CHOIX-----------------\n");
         printf("1 - Ajouter joueur\n");
         printf("2 - Modifier joueur\n");
         printf("3 - Supprimer joueur\n");
