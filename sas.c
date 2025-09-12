@@ -131,7 +131,8 @@ void RecherchJoueurs()
             }
         }
     default:
-        printf("option non valide") break;
+        printf("option non valide");
+        break;
     }
 
     if (found == 0)
@@ -146,7 +147,7 @@ void modification(int id)
 
     printf("1 .Modifier le poste d'un joueur \n");
     printf("2 .Modifier l'age d'un joueur \n");
-    printf("3 .Modifier le nombre de buts marqués \n");
+    printf("3 .Modifier le nombre de buts marques \n");
     printf("4 .Retour a la page principale\n");
     scanf("%d", &choix);
     getchar();
@@ -182,14 +183,12 @@ void modification(int id)
         break;
     default:
         printf("\nChoix invalide!!\n");
-
-        // while (choix != 4)
-        //     ;
     }
 }
 
 void afficherJoueurs()
 {
+    // choseie  le mode de l'affichage
     if (countJoueurs == 0)
     {
         printf("\nAucun joueur dans l'equipe.\n");
@@ -203,18 +202,19 @@ void afficherJoueurs()
                j[i].id, j[i].nom, j[i].prenom, j[i].numeroMaillot, j[i].poste, j[i].age, j[i].buts);
     }
 }
-void suppristion(){
+void suppristion()
+{
     int SupId;
     printf("Entrer l'identifiant de joeur pour supprimer\n");
-    scanf("%d",&SupId);
+    scanf("%d", &SupId);
     for (int i = 0; i < countJoueurs; i++)
     {
-     j[i].id==SupId;
+        j[i].id == SupId;
     }
-    
-
 }
-
+void statistique()
+{
+}
 int main()
 {
     do
@@ -248,10 +248,10 @@ int main()
             afficherJoueurs();
             break;
         case 5:
-            RecherchJouerus();
+            RecherchJoueurs();
             break;
         case 6:
-
+            statistique();
             break;
         case 7:
             printf("\nAu revoir !!!\n");
