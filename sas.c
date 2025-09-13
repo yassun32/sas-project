@@ -93,51 +93,62 @@ void menuAjouterJoueur()
     } while (choix != 3);
 }
 
+int rechercheById(int id)
+{
+
+    printf("Entrer le ID de joueur\n");
+    scanf("%d", &id);
+    getchar();
+    for (int i = 0; i < countJoueurs; i++)
+    {
+        if (j[i].id == id)
+        {
+
+            printf("ID: %d | Nom: %s | Prenom: %s | Maillot: %d | Poste: %s | Age: %d | Buts: %d\n",
+                   j[i].id, j[i].nom, j[i].prenom, j[i].numeroMaillot, j[i].poste, j[i].age, j[i].buts);
+        }       return i;
+    }
+    return -1;
+}
+
+int rechercheByNom(char nom[60])
+{
+
+    printf("Entre le nome de joueur :\n");
+    scanf("%s", nom);
+    getchar();
+    for (int x = 0; x < countJoueurs; x++)
+    {
+        if (strcasecmp(j[x].nom, nom) == 0)
+        {
+
+            printf("ID: %d | Nom: %s | Prenom: %s | Maillot: %d | Poste: %s | Age: %d | Buts: %d\n",
+                   j[x].id, j[x].nom, j[x].prenom, j[x].numeroMaillot, j[x].poste, j[x].age, j[x].buts);
+        }
+        return x;
+    }
+    return -1;
+}
+
 void RecherchJoueurs()
 {
     int id;
     char nome[20];
-    int found = 0;
+
     printf("0 :le recherche par ID \n1  :Le recherche par un nome\n ");
     scanf("%d", &choix);
     getchar();
     switch (choix)
     {
     case 0:
-        printf("Entrer le ID de joueur\n");
-        scanf("%d", &id);
-        getchar();
-        for (int i = 0; i < countJoueurs; i++)
-        {
-            if (j[i].id == id)
-            {
-                found = 1;
-                printf("ID: %d | Nom: %s | Prenom: %s | Maillot: %d | Poste: %s | Age: %d | Buts: %d\n",
-                       j[i].id, j[i].nom, j[i].prenom, j[i].numeroMaillot, j[i].poste, j[i].age, j[i].buts);
-            }
-        }
+        rechercheById(id);
         break;
     case 1:
-        printf("Entre le nome de joueur :\n");
-        scanf("%s", nome);
-        getchar();
-        for (int x = 0; x < countJoueurs; x++)
-        {
-            if (strcasecmp(j[x].nom, nome) == 0)
-            {
-                found = 1;
-                printf("ID: %d | Nom: %s | Prenom: %s | Maillot: %d | Poste: %s | Age: %d | Buts: %d\n",
-                       j[x].id, j[x].nom, j[x].prenom, j[x].numeroMaillot, j[x].poste, j[x].age, j[x].buts);
-            }
-        }
+        rechercheByNom(nome);
+        break;
     default:
         printf("option non valide");
         break;
-    }
-
-    if (found == 0)
-    {
-        printf("Joueer not found");
     }
 }
 void modification(int id)
@@ -151,33 +162,52 @@ void modification(int id)
     printf("4 .Retour a la page principale\n");
     scanf("%d", &choix);
     getchar();
+    printf("entrer le id joeur tu va etudier ");
+    scanf("%d", &id);
+    getchar();
     switch (choix)
     {
     case 1:
-        printf("Entre un neuvelle post\n");
-        scanf("%s", Nposte);
-        getchar();
-        for (int i = 0; i < countJoueurs; i++)
+        int index = rechercheById(id);
+
+        if (index == -1)
         {
-            strcpy(j[i].poste, Nposte);
+            printf("le joueur non declare !!");
+        }
+        else
+        {
+
+            printf("Entre un nouvelle post\n");
+            scanf("%s", Nposte);
+            getchar();
+
+            strcpy(j[index].poste, Nposte);
         }
         break;
     case 2:
-        printf("Entre un neuvelle age\n");
-        scanf("%d", &Nage);
-        getchar();
-        for (int i = 0; i < countJoueurs; i++)
+        if (index == -1)
         {
-            (j[i].age == Nage);
+            printf("le joueur non declare !!");
+        }
+        else
+        {
+            printf("Entre un neuvelle age\n");
+            scanf("%d", &Nage);
+            getchar();
+            (j[index].age == Nage);
         }
 
     case 3:
         printf("Entre un neuvelle nombre des buts\n");
         scanf("%d", &Nbuts);
         getchar();
-        for (int i = 0; i < countJoueurs; i++)
+        if (index == -1)
         {
-            (j[i].buts == Nbuts);
+            printf("le joueur non declare !!");
+        }
+        else
+        {
+            (j[index].buts == Nbuts);
         }
     case 4:
         break;
@@ -217,6 +247,25 @@ void statistique()
 }
 int main()
 {
+
+    Joueur joueursInitiaux[] = {
+        {1, "Ronaldo", "Cristiano", 7, "Attaquant", 39, 850},
+        {2, "Messi", "Lionel", 10, "Attaquant", 37, 900},
+        {3, "Neuer", "Manuel", 1, "Gardien", 38, 0},
+        {4, "Ramos", "Sergio", 4, "Defenseur", 39, 120},
+        {5, "Modric", "Luka", 10, "Milieu", 38, 150},
+        {6, "Mbappe", "Kylian", 9, "Attaquant", 26, 250},
+        {7, "Kante", "N'Golo", 6, "Milieu", 33, 40},
+        {8, "VanDijk", "Virgil", 5, "Defenseur", 34, 50}};
+
+    int n = sizeof(joueursInitiaux) / sizeof(joueursInitiaux[0]);
+
+    for (int i = 0; i < n; i++)
+    {
+        j[countJoueurs++] = joueursInitiaux[i];
+    }
+
+    int id;
     do
     {
         printf("\n--------------------------------------\n");
@@ -239,7 +288,7 @@ int main()
             menuAjouterJoueur();
             break;
         case 2:
-            menuAjouterJoueur();
+            modification(id);
             break;
         case 3:
             suppristion();
